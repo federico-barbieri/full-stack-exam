@@ -1,4 +1,3 @@
-import React from "react";
 import apiClient from "../services/apiClient";
 import {useState, useEffect} from "react";
 import './Grid.css';

@@ -1,4 +1,3 @@
-import React from "react";
 import './Card.css';
 
 const Card = ({ titles, artist, has_image, image_thumbnail, materials, techniques, colors }) => {
