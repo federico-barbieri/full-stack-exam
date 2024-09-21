@@ -1,4 +1,3 @@
-// @ts-expect-error do it
 import React from "react";
 import apiClient from "../services/apiClient";
 import {useState, useEffect} from "react";
@@ -28,7 +27,6 @@ const Grid = () => {
     }, []);
 
     return (
-        // @ts-expect-error do it
         <div className="cardGrid">
             
             <ul>
