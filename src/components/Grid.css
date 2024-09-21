@@ -3,7 +3,6 @@
     width: 90%;
     height: auto;
     margin: 0 auto;
-    border: 1px solid red;
 
 }
 
@@ -15,7 +14,6 @@ ul{
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
-    border: 1px solid rgb(86, 235, 86);
     margin: 0 auto;
     margin-block-start: 0em;
     margin-block-end: 0em;
