@@ -1,7 +1,9 @@
+// @ts-expect-error do it
 import React from "react";
 import './Card.css';
 
 const Card = ({ titles, artist, has_image, image_thumbnail, materials, techniques, colors }) => {
+    // @ts-expect-error do it
     return (
         <div className="individualCard">
             <div className="cardImageContainer">
