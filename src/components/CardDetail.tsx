@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import apiClient from "../services/apiClient";
 import { Card, CardBody, Heading, Image, Text, Flex, Box } from '@chakra-ui/react'
