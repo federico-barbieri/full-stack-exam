@@ -1,7 +1,7 @@
 import apiClient from "../services/apiClient";
 import {useState, useEffect} from "react";
 import './Grid.css';
-import Card from "./Card";
+import ArtCard from "./ArtCard";
 
 
 
@@ -32,7 +32,7 @@ const Grid = () => {
 
                 {art.map((artItem) => (
                     <li key={artItem.id}>
-                        <Card 
+                        <ArtCard 
                             titles={artItem.titles} 
                             artist={artItem.artist} 
                             has_image={artItem.has_image} 
