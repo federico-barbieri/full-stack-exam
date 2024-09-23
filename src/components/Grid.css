@@ -1,9 +1,18 @@
-.cardGrid{
+.navAndGrid{
     display: block;
     width: 90%;
     height: auto;
     margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+}
 
+.cardGrid{
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
 }
 
 

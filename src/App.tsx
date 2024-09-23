@@ -8,7 +8,6 @@ function App() {
   return (
     <>
      <NavBar />
-     <h1>SMK Art</h1>
 
       <Grid />
       
