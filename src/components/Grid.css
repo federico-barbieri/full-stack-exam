@@ -1,6 +1,6 @@
 .navAndGrid{
     display: block;
-    width: 90%;
+    width: 85%;
     height: auto;
     margin: 0 auto;
     display: flex;
@@ -11,8 +11,9 @@
 
 .cardGrid{
     width: 80%;
-    height: auto;
-    margin: 0 auto;
+    height: 80vh;
+    margin: 0 auto 1rem 2rem;
+    overflow-y: scroll;
 }
 
 

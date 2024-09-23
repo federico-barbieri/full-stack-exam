@@ -3,7 +3,7 @@ import { Card, CardBody, Heading, Image, Text } from '@chakra-ui/react'
 
 const ArtCard = ({ titles, artist, has_image, image_thumbnail, materials, techniques, colors }) => {
 
-    const getColors = colors.map((color) => (
+    const getColors = (colors && Array.isArray(colors)) ? colors.map((color) => (
         <span
             key={color}
             style={{
@@ -14,7 +14,8 @@ const ArtCard = ({ titles, artist, has_image, image_thumbnail, materials, techni
                 borderRadius: '50%',       // Make it a circle
                 margin: '0 5px'            // Add some space between the circles
             }}
-        ></span>))
+        ></span>
+    )) : null;
 
     return (
         
@@ -28,7 +29,7 @@ const ArtCard = ({ titles, artist, has_image, image_thumbnail, materials, techni
                     <Heading size='md'>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</Heading>
                     <Heading size='sm'>{artist || "Unknown Artist"}</Heading>
                 </Heading>
-                <Text>{getColors}</Text>
+                {getColors && <Text>{getColors}</Text>}
                 <Text>{techniques}</Text>
                 <Text>{materials}</Text>
             </CardBody>

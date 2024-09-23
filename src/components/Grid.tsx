@@ -2,50 +2,56 @@ import apiClient from "../services/apiClient";
 import {useState, useEffect} from "react";
 import './Grid.css';
 import ArtCard from "./ArtCard";
-import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
-    Box,
-  } from '@chakra-ui/react'
-
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 
 
 const Grid = () => {
 
     const [art, setArt] = useState([])
     const [error, setError] = useState("");
+    const [offset, setOffset] = useState(0);
+    const [loading, setLoading] = useState(false); // Track loading state
+
+
+    const getMoreArt = () => {
+        if (!loading) {
+            setOffset(prevOffset => prevOffset + 30); // Increase the offset by 30
+        }
+    }
 
     useEffect(() => {
         const fetchArt = async () => {
+            setLoading(true); // Set loading to true when starting the request
             try {
-                const response = await apiClient.get("/art/search/?keys=*&image_orientation=portrait&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=0&rows=30");
-                setArt(response.data.items);
+                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=portrait&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
+                setArt(prevArt => [...prevArt, ...response.data.items]);
                 console.log(response.data.items);
             } 
             catch (error) {
                 setError(error.message);
             }
+            finally {
+                setLoading(false); // Set loading to false after the request finishes
+            }
         };
 
         fetchArt();
-    }, []);
+    }, [offset]);
 
     return (
 
         <div className="navAndGrid">
             <Accordion width="20%">
                 <AccordionItem>
-                    <h2>
+                    
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                         Filter by genre
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                    </h2>
+                    
                     <AccordionPanel pb={4} >
                     <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Modern
@@ -60,14 +66,14 @@ const Grid = () => {
                 </AccordionItem>
 
                 <AccordionItem>
-                    <h2>
+                    
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                         Filter by artist
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                    </h2>
+                    
                     <AccordionPanel pb={4} >
                     <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Chagal
@@ -82,14 +88,14 @@ const Grid = () => {
                 </AccordionItem>
 
                 <AccordionItem>
-                    <h2>
+                    
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
                         Filter by century
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
-                    </h2>
+                    
                     <AccordionPanel pb={4} >
                     <Box as='h3' flex='1' textAlign='left' pb={3}>
                         1500's
@@ -114,7 +120,7 @@ const Grid = () => {
             <div className="cardGrid">
                 <ul>
                     {art.map((artItem) => (
-                        <li key={artItem.id}>
+                        <li key={artItem.id + Math.floor(Math.random() * 1000)}>
                             <ArtCard 
                                 titles={artItem.titles} 
                                 artist={artItem.artist} 
@@ -128,6 +134,8 @@ const Grid = () => {
                     ))}
                 </ul>
                 {error && <p style={{ color: "red" }}>{error}</p>}
+                <Button isDisabled={loading} onClick={getMoreArt} colorScheme='blackAlpha' m={10} p={2}>More art</Button>
+                
             </div>
         </div>
     )
