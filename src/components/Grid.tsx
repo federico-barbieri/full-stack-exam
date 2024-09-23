@@ -4,6 +4,8 @@ import './Grid.css';
 import ArtCard from "./ArtCard";
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
+import { Link } from "react-router-dom";
+
 
 
 const Grid = () => {
@@ -16,7 +18,7 @@ const Grid = () => {
 
     const getMoreArt = () => {
         if (!loading) {
-            setOffset(prevOffset => prevOffset + 30); // Increase the offset by 30
+            setOffset(prevOffset => prevOffset + 10); // Increase the offset by 30
         }
     }
 
@@ -24,7 +26,7 @@ const Grid = () => {
         const fetchArt = async () => {
             setLoading(true); // Set loading to true when starting the request
             try {
-                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=portrait&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
+                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=portrait&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=10`);
                 setArt(prevArt => [...prevArt, ...response.data.items]);
                 console.log(response.data.items);
             } 
@@ -121,15 +123,16 @@ const Grid = () => {
                 <ul>
                     {art.map((artItem) => (
                         <li key={artItem.id + Math.floor(Math.random() * 1000)}>
-                            <ArtCard 
-                                titles={artItem.titles} 
-                                artist={artItem.artist} 
-                                has_image={artItem.has_image} 
-                                image_thumbnail={artItem.image_thumbnail}
-                                materials={artItem.materials}
-                                techniques={artItem.techniques}
-                                colors={artItem.colors}
-                            />
+                            <Link to={`/art/${artItem.object_number}`}>
+                                <ArtCard 
+                                    titles={artItem.titles} 
+                                    artist={artItem.artist} 
+                                    image_thumbnail={artItem.image_thumbnail}
+                                    materials={artItem.materials}
+                                    techniques={artItem.techniques}
+                                    colors={artItem.colors}
+                                />
+                            </Link>
                         </li>
                     ))}
                 </ul>
