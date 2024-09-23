@@ -55,7 +55,6 @@ const CardDetail = () => {
         className="cardDetailPage"
         >
             <Card
-            style={{ backgroundImage: gradientBackground, backgroundSize: 'cover', padding: '2rem', mixBlendMode: 'multiply' }}
             direction="row"  // Flex direction for the entire Card
             overflow='hidden'
             variant='outline'
@@ -68,19 +67,39 @@ const CardDetail = () => {
             >
                 <CardBody>
                     <Flex direction="row" align="center" justify="center" wrap="wrap">
-                        <Box flex="1" mr={5}>
+                        <Box 
+                            flex="1"
+                            ml={5}
+                            w="20%"  // Set the width to 20%
+                            height="100%" 
+                            display="flex"
+                            flexDirection="column" 
+                            alignContent="flex-start"
+                            textAlign="left" 
+                            justifyContent="space-around"
+                            flexWrap="wrap"
+                        >
                             {/* Text and information about the art */}
-                            <Heading size='md'>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</Heading>
-                            <Heading size='sm'>{artist || "Unknown Artist"}</Heading>
-                            {getColors && <Text>Colors: {getColors}</Text>}
-                            <Text size='sm'><strong>Techniques:</strong> {techniques}</Text>
-                            <Text size='sm'><strong>Materials:</strong> {materials}</Text>
+                            <Heading pb={5} size='lg'>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</Heading>
+                            <Heading pb={5} size='md'>{artist || "Unknown Artist"}</Heading>
+                            {getColors && <Text pb={5}>Colors: {getColors}</Text>}
+                            <Text pb={5} size='sm'><strong>Techniques:</strong> {techniques}</Text>
+                            <Text pb={5} size='sm'><strong>Materials:</strong> {materials}</Text>
                         </Box>
                         
-                        <Box flex="1">
+                        <Box 
+                            flex="1"
+                            display="flex" 
+                            justifyContent="center" 
+                            alignItems="center" 
+                            height="100%" 
+                            w="80%"  // Set the width to 80%
+                            style={{ backgroundImage: gradientBackground, backgroundSize: 'cover', padding: '2rem', mixBlendMode: 'multiply' }}
+                        >
                             {/* Image */}
                             <Image 
                                 maxW="70%"
+                                height="auto"
                                 src={image_thumbnail} 
                                 alt={titles && titles.length > 0 ? titles[0].title : "no image available"} 
                             />
