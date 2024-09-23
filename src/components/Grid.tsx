@@ -36,7 +36,7 @@ const Grid = () => {
     return (
 
         <div className="navAndGrid">
-            <Accordion width="30%">
+            <Accordion width="20%">
                 <AccordionItem>
                     <h2>
                     <AccordionButton>
@@ -47,13 +47,13 @@ const Grid = () => {
                     </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4} >
-                    <Box as='h3' flex='1' textAlign='left'>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Modern
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left'>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Danish
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left'>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Udenlands
                     </Box>
                     </AccordionPanel>
@@ -69,14 +69,42 @@ const Grid = () => {
                     </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4} >
-                    <Box as='h3' flex='1' textAlign='left'>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Chagal
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left'>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Modigliani
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left'>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
                         Munch
+                    </Box>
+                    </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                    <h2>
+                    <AccordionButton>
+                        <Box as='span' flex='1' textAlign='left'>
+                        Filter by century
+                        </Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4} >
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                        1500's
+                    </Box>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                        1600's
+                    </Box>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                        1700's
+                    </Box>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                        1800's
+                    </Box>
+                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                        1900's
                     </Box>
                     </AccordionPanel>
                 </AccordionItem>
