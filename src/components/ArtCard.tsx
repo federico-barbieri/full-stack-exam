@@ -26,7 +26,7 @@ const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, color
                 alt={titles && titles.length > 0 ? titles[0].title : "no image available"} 
                 />
                 
-                <Box p={2} as='div' flex='1' display="flex" orientation="row" justifyContent="space-between" textAlign='left'>
+                <Box p={2} as='div' flex='1' display="flex" direction="row" justifyContent="space-between" textAlign='left'>
                     <Box>
                         <Text p={0} textAlign="left" fontSize="lg"><strong>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</strong></Text>
                         <Text pt={2} textAlign="left" fontSize="md">By {artist || "Unknown Artist"}</Text>
