@@ -1,19 +1,22 @@
 .navAndGrid{
     display: block;
-    width: 85%;
+    width: 95%;
     height: auto;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
+    border: 2px solid red;
 }
 
 .cardGrid{
-    width: 80%;
+    width: 100%;
     height: 80vh;
-    margin: 0 auto 1rem 2rem;
+    margin: 0 0rem 0rem 2rem;
     overflow-y: scroll;
+    border: 2px solid blue;
+
 }
 
 
@@ -21,13 +24,17 @@ ul{
     list-style-type: none;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    align-items: start;
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 0 auto;
+    margin: 2rem auto;
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding-inline-start: 0px;
+    width: 90vw;
+    border: 2px solid orange;
+    padding: 0rem;
+
 }
 
 ul > li{

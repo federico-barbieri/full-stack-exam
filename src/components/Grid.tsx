@@ -13,20 +13,16 @@ const Grid = () => {
     const [art, setArt] = useState([])
     const [error, setError] = useState("");
     const [offset, setOffset] = useState(0);
+    const [technique, setTechnique] = useState("")
     const [loading, setLoading] = useState(false); // Track loading state
 
-
-    const getMoreArt = () => {
-        if (!loading) {
-            setOffset(prevOffset => prevOffset + 10); // Increase the offset by 30
-        }
-    }
 
     useEffect(() => {
         const fetchArt = async () => {
             setLoading(true); // Set loading to true when starting the request
             try {
-                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=portrait&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=10`);
+                console.log(technique)
+                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
                 setArt(prevArt => [...prevArt, ...response.data.items]);
                 console.log(response.data.items);
             } 
@@ -39,7 +35,22 @@ const Grid = () => {
         };
 
         fetchArt();
-    }, [offset]);
+    }, [offset, technique]);
+
+    const getMoreArt = () => {
+        if (!loading) {
+            setOffset(prevOffset => prevOffset + 10); // Increase the offset by 30
+        }
+    }
+
+    const getTechnique = (technique) => {
+        if (!loading) {
+            setTechnique(technique);
+            const filteredArt = art.filter((piece) => piece.techniques[0] === technique)
+            setArt(filteredArt); // store the technique the user picked
+            setOffset(0); // reset the offset to 0
+        }
+    }
 
     return (
 
@@ -49,20 +60,20 @@ const Grid = () => {
                     
                     <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
-                        Filter by genre
+                        Filter by technique
                         </Box>
                         <AccordionIcon />
                     </AccordionButton>
                     
                     <AccordionPanel pb={4} >
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
-                        Modern
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} onClick={() => getTechnique("Tempera på pap")} _hover={{color: 'red'}}>
+                        Tempera på pap
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
-                        Danish
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} onClick={() => getTechnique("Olie på lærred")} _hover={{color: 'red'}}>
+                        Olie på lærred
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
-                        Udenlands
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} onClick={() => getTechnique("Olie på papir monteret på lærred")} _hover={{color: 'red'}}>
+                        Olie på papir monteret på lærred
                     </Box>
                     </AccordionPanel>
                 </AccordionItem>
@@ -77,13 +88,13 @@ const Grid = () => {
                     </AccordionButton>
                     
                     <AccordionPanel pb={4} >
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         Chagal
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         Modigliani
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         Munch
                     </Box>
                     </AccordionPanel>
@@ -99,19 +110,19 @@ const Grid = () => {
                     </AccordionButton>
                     
                     <AccordionPanel pb={4} >
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         1500's
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         1600's
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         1700's
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         1800's
                     </Box>
-                    <Box as='h3' flex='1' textAlign='left' pb={3}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
                         1900's
                     </Box>
                     </AccordionPanel>

@@ -1,5 +1,5 @@
 import './Card.css';
-import { Card, CardBody, Heading, Image, Text } from '@chakra-ui/react'
+import { Card, CardBody, Image, Text, Box } from '@chakra-ui/react'
 
 const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, colors }) => {
 
@@ -19,19 +19,44 @@ const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, color
 
     return (
         
-        <Card>
+        <Card _hover={{filter: 'drop-shadow(2px 2px 2px black)'}} m="1rem" w="70%">
             <CardBody>
                 <Image 
                 src={image_thumbnail} 
                 alt={titles && titles.length > 0 ? titles[0].title : "no image available"} 
                 />
-                <Heading>
-                    <Heading size='md'>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</Heading>
-                    <Heading size='sm'>{artist || "Unknown Artist"}</Heading>
-                </Heading>
-                {getColors && <Text>{getColors}</Text>}
-                <Text>{techniques}</Text>
-                <Text>{materials}</Text>
+                
+                <Box p={2} as='div' flex='1' display="flex" orientation="row" justifyContent="space-between" textAlign='left'>
+                    <Box>
+                        <Text p={0} textAlign="left" fontSize="lg"><strong>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</strong></Text>
+                        <Text pt={2} textAlign="left" fontSize="md">By {artist || "Unknown Artist"}</Text>
+                    </Box>
+
+                    {getColors && <Text w="250px" p={2}>{getColors}</Text>}
+
+                </Box>
+
+                <Box display="flex" justifyContent="flex-end">
+                    <Text 
+                    style={{backgroundColor: '#6F9AAA', padding: '0.25rem', color: 'white', borderRadius: '20px'}} 
+                    w="30%" 
+                    p={2} 
+                    m={2} 
+                    fontSize="sm">
+                    {techniques}
+                    </Text>
+                    <Text 
+                    style={{backgroundColor: '#6F9AAA', padding: '0.25rem', color: 'white', borderRadius: '20px'}} 
+                    w="30%" 
+                    p={2} 
+                    m={2} 
+                    fontSize="sm">
+                    {materials}
+                    </Text>
+
+                </Box>
+
+                
             </CardBody>
         </Card>
         
