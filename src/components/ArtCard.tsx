@@ -45,14 +45,14 @@ const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, color
                     fontSize="sm">
                     {techniques}
                     </Text>
-                    <Text 
+                    {materials && <Text 
                     style={{backgroundColor: '#6F9AAA', padding: '0.25rem', color: 'white', borderRadius: '20px'}} 
                     w="30%" 
                     p={2} 
                     m={2} 
                     fontSize="sm">
                     {materials}
-                    </Text>
+                    </Text> }
 
                 </Box>
 
