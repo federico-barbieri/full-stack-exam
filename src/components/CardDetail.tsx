@@ -29,7 +29,7 @@ const CardDetail = () => {
 
     if (!artDetail) return <p>Loading...</p>;
 
-    const { titles, artist, image_thumbnail, techniques, materials, colors } = artDetail.items[0];
+    const { titles, artist, image_thumbnail, techniques, materials, colors, production_date } = artDetail.items[0];
 
     const getColors = colors && Array.isArray(colors) ? colors.map((color) => (
         <span
@@ -82,6 +82,7 @@ const CardDetail = () => {
                             {/* Text and information about the art */}
                             <Heading pb={5} size='lg'>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</Heading>
                             <Heading pb={5} size='md'>{artist || "Unknown Artist"}</Heading>
+                            <Heading pb={5} size='md'>{production_date[0].period}</Heading>
                             {getColors && <Text pb={5}>Colors: {getColors}</Text>}
                             <Text pb={5} size='sm'><strong>Techniques:</strong> {techniques}</Text>
                             <Text pb={5} size='sm'><strong>Materials:</strong> {materials}</Text>

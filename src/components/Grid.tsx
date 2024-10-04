@@ -10,21 +10,25 @@ import { Link } from "react-router-dom";
 
 const Grid = () => {
 
-    const [art, setArt] = useState([])
+    const [art, setArt] = useState([]) // store art array
     const [error, setError] = useState("");
-    const [offset, setOffset] = useState(0);
-    const [technique, setTechnique] = useState("")
+    const [offset, setOffset] = useState(0); // load more art
+    const [technique, setTechnique] = useState("") // store technique used by artist
     const [loading, setLoading] = useState(false); // Track loading state
 
 
     useEffect(() => {
         const fetchArt = async () => {
             setLoading(true); // Set loading to true when starting the request
+           
+
             try {
-                console.log(technique)
-                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
-                setArt(prevArt => [...prevArt, ...response.data.items]);
-                console.log(response.data.items);
+               
+                    console.log(technique)
+                    const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
+                    setArt(prevArt => [...prevArt, ...response.data.items]);
+                    console.log(response.data.items);
+                
             } 
             catch (error) {
                 setError(error.message);
@@ -36,6 +40,8 @@ const Grid = () => {
 
         fetchArt();
     }, [offset, technique]);
+
+
 
     const getMoreArt = () => {
         if (!loading) {
@@ -142,6 +148,7 @@ const Grid = () => {
                                     materials={artItem.materials}
                                     techniques={artItem.techniques}
                                     colors={artItem.colors}
+                                    production_date={artItem.production_date[0].period}
                                 />
                             </Link>
                         </li>

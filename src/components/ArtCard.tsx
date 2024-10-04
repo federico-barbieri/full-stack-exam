@@ -1,7 +1,7 @@
 import './Card.css';
 import { Card, CardBody, Image, Text, Box } from '@chakra-ui/react'
 
-const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, colors }) => {
+const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, colors, production_date }) => {
 
     const getColors = (colors && Array.isArray(colors)) ? colors.map((color) => (
         <span
@@ -30,6 +30,7 @@ const ArtCard = ({ titles, artist, image_thumbnail, materials, techniques, color
                     <Box>
                         <Text p={0} textAlign="left" fontSize="lg"><strong>{titles && titles.length > 0 ? titles[0].title : "Untitled"}</strong></Text>
                         <Text pt={2} textAlign="left" fontSize="md">By {artist || "Unknown Artist"}</Text>
+                        <Text pt={2} textAlign="left" fontSize="md">{production_date}</Text>
                     </Box>
 
                     {getColors && <Text w="250px" p={2}>{getColors}</Text>}
