@@ -7,7 +7,6 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    border: 2px solid red;
 }
 
 .cardGrid{
@@ -15,7 +14,6 @@
     height: 80vh;
     margin: 0 0rem 0rem 2rem;
     overflow-y: scroll;
-    border: 2px solid blue;
 
 }
 
@@ -32,7 +30,6 @@ ul{
     margin-block-end: 0em;
     padding-inline-start: 0px;
     width: 90vw;
-    border: 2px solid orange;
     padding: 0rem;
 
 }
