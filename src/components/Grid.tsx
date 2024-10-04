@@ -82,7 +82,7 @@ const Grid = () => {
     return (
 
         <div className="navAndGrid">
-            <Accordion width="20%">
+            <Accordion className="accordion">
                 <AccordionItem>
                     
                     <AccordionButton>

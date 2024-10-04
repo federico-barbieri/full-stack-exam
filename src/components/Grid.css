@@ -6,15 +6,19 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.accordion{
+    width: 18%;
 }
 
 .cardGrid{
-    width: 100%;
+    width: 82%;
     height: 80vh;
     margin: 0 0rem 0rem 2rem;
     overflow-y: scroll;
-
+    overflow-x: hidden;
 }
 
 
@@ -29,11 +33,42 @@ ul{
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding-inline-start: 0px;
-    width: 90vw;
+    width: 100%;
     padding: 0rem;
 
 }
 
 ul > li{
     width: clamp(40%, 50%, 100%);
+}
+
+@media only screen and (max-width: 1000px){
+    
+    .navAndGrid{
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+    }
+    .cardGrid{
+        width: 90%;
+        height: 80vh;
+        margin: 1rem auto;
+        overflow-y: scroll;
+    }
+    .accordion{
+        width: 800px !important;
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        margin: 0 auto;
+
+    }
+    .accordion *{
+        width: 15rem;
+    }
 }
