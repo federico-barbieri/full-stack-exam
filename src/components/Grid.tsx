@@ -14,32 +14,35 @@ const Grid = () => {
     const [error, setError] = useState("");
     const [offset, setOffset] = useState(0); // load more art
     const [technique, setTechnique] = useState("") // store technique used by artist
+    const [century, setCentury] = useState(0) // store century to filter artworks
     const [loading, setLoading] = useState(false); // Track loading state
 
 
     useEffect(() => {
         const fetchArt = async () => {
             setLoading(true); // Set loading to true when starting the request
-           
-
             try {
-               
-                    console.log(technique)
-                    const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
-                    setArt(prevArt => [...prevArt, ...response.data.items]);
-                    console.log(response.data.items);
+                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
                 
+                // Only append new art if no filtering is applied
+                if (!technique && !century) {
+                    setArt(prevArt => [...prevArt, ...response.data.items]); // Append new art
+                } else {
+                    setArt(response.data.items); // Replace with new data if filtering
+                }
+    
+                console.log(response.data.items);
             } 
             catch (error) {
                 setError(error.message);
-            }
+            } 
             finally {
                 setLoading(false); // Set loading to false after the request finishes
             }
         };
-
+    
         fetchArt();
-    }, [offset, technique]);
+    }, [offset]);
 
 
 
@@ -57,6 +60,24 @@ const Grid = () => {
             setOffset(0); // reset the offset to 0
         }
     }
+
+    const getCentury = (century) => {
+        if (!loading) {
+            setCentury(century);
+            const filteredArt = art.filter((piece) => {
+                const period = piece.production_date[0].period;
+                const yearString = period.includes('-') ? period.split('-')[0] : period;
+                const year = parseInt(yearString.trim(), 10);
+                return year >= century && year < century + 100;
+            });
+            
+            setArt([]);  // Clear the previous art array
+            setTimeout(() => setArt(filteredArt), 0); // Set filtered artworks after clearing
+            
+            setOffset(0); // Reset the offset
+            console.log(filteredArt);
+        }
+    };
 
     return (
 
@@ -116,19 +137,19 @@ const Grid = () => {
                     </AccordionButton>
                     
                     <AccordionPanel pb={4} >
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1500)} pb={3} _hover={{color: 'red'}}>
                         1500's
                     </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1600)} pb={3} _hover={{color: 'red'}}>
                         1600's
                     </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1700)} pb={3} _hover={{color: 'red'}}>
                         1700's
                     </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1800)} pb={3} _hover={{color: 'red'}}>
                         1800's
                     </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
+                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1900)} pb={3} _hover={{color: 'red'}}>
                         1900's
                     </Box>
                     </AccordionPanel>
