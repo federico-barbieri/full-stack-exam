@@ -1,13 +1,4 @@
-.individualCard{
-    padding: 10px;
-    width: 600px;
-    height: 500px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-}
+
 
 .cardImageContainer{
     width: 200px;

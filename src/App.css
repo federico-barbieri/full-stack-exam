@@ -1,8 +1,8 @@
 #root {
-  
-  margin: 0 auto;
+  margin: 0;
   padding: 0rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -33,9 +33,6 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
 
 .read-the-docs {
   color: #888;

@@ -1,74 +1,76 @@
-.navAndGrid{
-    display: block;
-    width: 95%;
-    height: auto;
-    margin: 0 auto;
+.navAndGrid {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
+    width: 95%;
+    margin: 0 auto;
 }
 
-.accordion{
+.accordion {
     width: 18%;
 }
 
-.cardGrid{
-    width: 82%;
+.cardGrid {
+    width: 100%;
     height: 80vh;
-    margin: 0 0rem 0rem 2rem;
+    margin: 0;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-
-ul{
-    list-style-type: none;
+ul {
     display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-between;
+    list-style-type: none;
     margin: 2rem auto;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    padding-inline-start: 0px;
+    padding: 0;
     width: 100%;
-    padding: 0rem;
-
 }
 
-ul > li{
-    width: clamp(40%, 50%, 100%);
+ul > li {
+    width: calc(50% - 1rem); /* Three items per row */
+    margin-bottom: 1rem; /* Spacing between rows */
 }
 
-@media only screen and (max-width: 1000px){
-    
-    .navAndGrid{
-        display: block;
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-        display: flex;
+@media only screen and (max-width: 1000px) {
+    .navAndGrid {
         flex-direction: column;
         align-items: flex-start;
-        justify-content: space-around;
     }
-    .cardGrid{
+
+    .cardGrid {
         width: 90%;
-        height: 80vh;
         margin: 1rem auto;
-        overflow-y: scroll;
     }
-    .accordion{
-        width: 800px !important;
-        display: flex;
-        flex-direction: row;
-        overflow-x: scroll;
-        margin: 0 auto;
+
+    ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    ul > li {
+        width: clamp(80%, 90%, 100%);
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .cardGrid {
+        width: 100%;
+        margin: 1rem auto;
+    }
+    ul > li {
+        width: 90%;
 
     }
-    .accordion *{
-        width: 15rem;
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        list-style-type: none;
+        margin: 2rem auto;
+        padding: 0;
+        width: 100vw;
     }
 }
