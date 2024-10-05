@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+**About
+**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An application that consumes the museum SMK's public API and displays its artworks.
 
-Currently, two official plugins are available:
+**Endpoints
+**
+Base API: https://api.smk.dk/api/v1
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Addition for initial fetching: `/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[public_domain:true]&offset=${offset}&rows=50`
 
-## Expanding the ESLint configuration
+**Filters
+**
+By setting the filters to "public_domain: true" and "has_image:true", we ensure that A. we can display the images and B. there are images to be displayed.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Features
+**
 
-- Configure the top-level `parserOptions` property like this:
+The application provides one filter (more to come) based on the century in which the artwork was created. By using the property production_date[0].period, 
+we can obtain both the initial and the end date.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+**Fetch more art
+**
+When the user clicks on the "more art" button, the offset variable increases by 30, thus fetching 50 more rows and adding them to the art state variable through setArt.
