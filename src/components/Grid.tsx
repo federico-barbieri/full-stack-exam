@@ -13,7 +13,6 @@ const Grid = () => {
     const [art, setArt] = useState([]) // store art array
     const [error, setError] = useState("");
     const [offset, setOffset] = useState(0); // load more art
-    const [technique, setTechnique] = useState("") // store technique used by artist
     const [century, setCentury] = useState(0) // store century to filter artworks
     const [loading, setLoading] = useState(false); // Track loading state
 
@@ -22,16 +21,30 @@ const Grid = () => {
         const fetchArt = async () => {
             setLoading(true); // Set loading to true when starting the request
             try {
-                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[object_names:maleri],[public_domain:true]&offset=${offset}&rows=30`);
+                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[public_domain:true]&offset=${offset}&rows=50`);
                 
-                // Only append new art if no filtering is applied
-                if (!technique && !century) {
-                    setArt(prevArt => [...prevArt, ...response.data.items]); // Append new art
-                } else {
-                    setArt(response.data.items); // Replace with new data if filtering
+                let fetchedArt = response.data.items;
+    
+                // Apply century filter if a century is selected
+                if (century !== 0) {
+                    fetchedArt = fetchedArt.filter((piece) => {
+                        const period = piece.production_date[0].period;
+                        const [startYearString, endYearString] = period.includes('-') ? period.split('-') : [period, period];
+                        const startYear = parseInt(startYearString.trim(), 10);
+                        const endYear = endYearString ? parseInt(endYearString.trim(), 10) : startYear;
+    
+                        // Check if the artwork falls within the century
+                        return (startYear >= century && startYear < century + 100) || 
+                               (endYear >= century && endYear < century + 100);
+                    });
                 }
     
-                console.log(response.data.items);
+                // Append or replace artworks based on offset
+                if (offset === 0) {
+                    setArt(fetchedArt); // Replace the artworks on the first fetch or when resetting
+                } else {
+                    setArt((prevArt) => [...prevArt, ...fetchedArt]); // Append new artworks
+                }
             } 
             catch (error) {
                 setError(error.message);
@@ -42,40 +55,25 @@ const Grid = () => {
         };
     
         fetchArt();
-    }, [offset]);
+    }, [offset, century]); // Fetch art when offset or century changes
 
-
+    // if i click the button more art, there should be a new fetch with +30 offset
 
     const getMoreArt = () => {
         if (!loading) {
-            setOffset(prevOffset => prevOffset + 10); // Increase the offset by 30
+            setOffset(prevOffset => prevOffset + 30); // Increase the offset by 30
         }
     }
 
-    const getTechnique = (technique) => {
-        if (!loading) {
-            setTechnique(technique);
-            const filteredArt = art.filter((piece) => piece.techniques[0] === technique)
-            setArt(filteredArt); // store the technique the user picked
-            setOffset(0); // reset the offset to 0
-        }
-    }
+
+    // a new fetch should happen and the array should be filtered before rendering it
+
 
     const getCentury = (century) => {
         if (!loading) {
-            setCentury(century);
-            const filteredArt = art.filter((piece) => {
-                const period = piece.production_date[0].period;
-                const yearString = period.includes('-') ? period.split('-')[0] : period;
-                const year = parseInt(yearString.trim(), 10);
-                return year >= century && year < century + 100;
-            });
-            
             setArt([]);  // Clear the previous art array
-            setTimeout(() => setArt(filteredArt), 0); // Set filtered artworks after clearing
-            
             setOffset(0); // Reset the offset
-            console.log(filteredArt);
+            setCentury(century); // Update the selected century, triggering a new fetch
         }
     };
 
@@ -83,50 +81,7 @@ const Grid = () => {
 
         <div className="navAndGrid">
             <Accordion className="accordion">
-                <AccordionItem>
-                    
-                    <AccordionButton>
-                        <Box as='span' flex='1' textAlign='left'>
-                        Filter by technique
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    
-                    <AccordionPanel pb={4} >
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} onClick={() => getTechnique("Tempera på pap")} _hover={{color: 'red'}}>
-                        Tempera på pap
-                    </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} onClick={() => getTechnique("Olie på lærred")} _hover={{color: 'red'}}>
-                        Olie på lærred
-                    </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} onClick={() => getTechnique("Olie på papir monteret på lærred")} _hover={{color: 'red'}}>
-                        Olie på papir monteret på lærred
-                    </Box>
-                    </AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem>
-                    
-                    <AccordionButton>
-                        <Box as='span' flex='1' textAlign='left'>
-                        Filter by artist
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    
-                    <AccordionPanel pb={4} >
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
-                        Chagal
-                    </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
-                        Modigliani
-                    </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' pb={3} _hover={{color: 'red'}}>
-                        Munch
-                    </Box>
-                    </AccordionPanel>
-                </AccordionItem>
-
+               
                 <AccordionItem>
                     
                     <AccordionButton>
