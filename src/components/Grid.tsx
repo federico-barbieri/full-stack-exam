@@ -15,13 +15,14 @@ const Grid = () => {
     const [offset, setOffset] = useState(0); // load more art
     const [century, setCentury] = useState(0) // store century to filter artworks
     const [loading, setLoading] = useState(false); // Track loading state
+    const [amountOfArt, setAmountOfArt] = useState(50)
 
 
     useEffect(() => {
         const fetchArt = async () => {
             setLoading(true); // Set loading to true when starting the request
             try {
-                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[public_domain:true]&offset=${offset}&rows=50`);
+                const response = await apiClient.get(`/art/search/?keys=*&image_orientation=landscape&filters=[has_image:true],[public_domain:true]&offset=${offset}&rows=${amountOfArt}`);
                 
                 let fetchedArt = response.data.items;
     
@@ -62,6 +63,7 @@ const Grid = () => {
     const getMoreArt = () => {
         if (!loading) {
             setOffset(prevOffset => prevOffset + 30); // Increase the offset by 30
+            setAmountOfArt(50);
         }
     }
 
@@ -74,6 +76,7 @@ const Grid = () => {
             setArt([]);  // Clear the previous art array
             setOffset(0); // Reset the offset
             setCentury(century); // Update the selected century, triggering a new fetch
+            setAmountOfArt(500); // increase the amount of art to be filtered
         }
     };
 
@@ -103,9 +106,6 @@ const Grid = () => {
                     </Box>
                     <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1800)} pb={3} _hover={{color: 'red'}}>
                         1800's
-                    </Box>
-                    <Box style={{cursor: "pointer"}} as='h3' flex='1' textAlign='left' onClick={() => getCentury(1900)} pb={3} _hover={{color: 'red'}}>
-                        1900's
                     </Box>
                     </AccordionPanel>
                 </AccordionItem>
