@@ -45,6 +45,7 @@ When the user clicks on the "more art" button, the offset variable increases by 
 ## Backend 
 
 * Node and Express - REST API
+* Swagger UI - Documentation
 
 ## Database
 
