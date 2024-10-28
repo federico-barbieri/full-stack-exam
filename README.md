@@ -34,3 +34,21 @@ const getCentury = (century) => {
 **
 When the user clicks on the "more art" button, the offset variable increases by 30, thus fetching 50 more rows and adding them to the art state variable through setArt.
 
+
+# Plan
+
+
+## Frontend
+
+React and TypeScript
+
+## Backend 
+
+Node and Express - REST API
+
+## Database
+
+PostgreSQL + ORM (Prisma)
+
+
+
