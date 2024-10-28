@@ -46,9 +46,19 @@ React and TypeScript
 
 Node and Express - REST API
 
+### DATABASE SCEMA
+USERS
+
+ARTWORKS
+
+ARTISTS
+
+
 ## Database
 
 PostgreSQL + ORM (Prisma)
 
-
+## Deployment
+Frontend - Vercel
+Backend & Database - 
 
