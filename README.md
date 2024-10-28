@@ -40,11 +40,16 @@ When the user clicks on the "more art" button, the offset variable increases by 
 
 ## Frontend
 
-React and TypeScript
+* React and TypeScript
 
 ## Backend 
 
-Node and Express - REST API
+* Node and Express - REST API
+* Swagger UI - Documentation
+
+## Database
+
+* PostgreSQL + ORM (Prisma)
 
 ### DATABASE SCEMA
 USERS
@@ -53,12 +58,10 @@ ARTWORKS
 
 ARTISTS
 
-
-## Database
-
-PostgreSQL + ORM (Prisma)
+## Local development
+* Docker
 
 ## Deployment
-Frontend - Vercel
-Backend & Database - 
+* Frontend - Vercel
+* Backend & Database - Render 
 
