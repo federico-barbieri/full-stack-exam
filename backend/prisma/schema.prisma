@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -13,7 +14,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Artwork {
-  id            String @id
-  object_number String @unique
+model User {
+  id            String   @id @default(uuid())
+  object_number String   @unique
+  name          String
+  email         String   @unique
+  createdAt     DateTime @default(now())
 }

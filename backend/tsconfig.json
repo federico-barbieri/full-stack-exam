@@ -1,8 +1,15 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "outDir": "dist",
-        "lib": ["esnext"],
-        "esModuleInterop": true
-    }
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2020",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "typeRoots": ["./node_modules/@types"],
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
 }

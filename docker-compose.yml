@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Service
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: fullstack_user
+      POSTGRES_PASSWORD: exam_password
+      POSTGRES_DB: full_stack_exam_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  # Backend Service
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: "postgresql://fullstack_user:exam_password@postgres:5432/full_stack_exam_db"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - "4000:4000"
+    networks:
+      - app-network
+
+  # Frontend Service
+  frontend:
+    build: ./frontend  # Assuming your frontend code is in the 'frontend' folder
+    command: npm run dev  # If you're using Vite or a similar dev server
+    volumes:
+      - ./frontend:/app  # Mount the frontend code
+      - /app/node_modules  # Keep node_modules within the container
+    ports:
+      - "5173:5173"  # Vite runs on port 5173 by default
+    networks:
+      - app-network
+    environment:
+      VITE_API_URL: "http://localhost:4000"  # This is the URL your frontend will use to call the backend
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:

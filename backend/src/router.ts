@@ -11,7 +11,7 @@ PRODUCT
 router.get("/specific_art", async (req, res) => {
     try {
       // Make an API call to the public API (e.g., SMK Museum API)
-      const apiResponse = await axios.get('https://api.smk.dk/api/v1/art/?object_number=kks5261');
+      const apiResponse: any = await axios.get('https://api.smk.dk/api/v1/art/?object_number=kks5261');
       const artworkData = apiResponse.data.items[0];
       
       // Store data in Postgres using Prisma's upsert
