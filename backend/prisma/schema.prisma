@@ -13,7 +13,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Artist {
+  id   String @id @default(uuid())
+  name String
+
+  artworks Artwork[]
+}
+
 model Artwork {
   id            String @id
   object_number String @unique
+  title         String
+  year          String
+  image_url     String
+  madeBy        String
+  belongsTo     Artist @relation(fields: [madeBy], references: [id])
 }
