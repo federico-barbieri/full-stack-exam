@@ -6,11 +6,12 @@ services:
       POSTGRES_USER: fullstack_user
       POSTGRES_PASSWORD: exam_password
       POSTGRES_DB: full_stack_exam_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    command:
-      - postgres
-    # You should configure a Persistent Disk for this in the Render dashboard
+    networks:
+      - app-network
 
   # Backend Service
   backend:
@@ -19,13 +20,27 @@ services:
       DATABASE_URL: "postgresql://fullstack_user:exam_password@postgres:5432/full_stack_exam_db"
     depends_on:
       - postgres
+    volumes:
+      - ./backend:/usr/src/app
     ports:
       - "4000:4000"
-    command: npm run dev  # Or your start command
+    networks:
+      - app-network
 
   # Frontend Service
   frontend:
     build: ./frontend  
     command: npm run dev  
+    volumes:
+      - ./frontend:/app  
+      - /app/node_modules  
     ports:
-      - "5173:5173"
+      - "5173:5173" 
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
