@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Service
   postgres:
@@ -31,17 +29,15 @@ services:
 
   # Frontend Service
   frontend:
-    build: ./frontend  # Assuming your frontend code is in the 'frontend' folder
-    command: npm run dev  # If you're using Vite or a similar dev server
+    build: ./frontend  
+    command: npm run dev  
     volumes:
-      - ./frontend:/app  # Mount the frontend code
-      - /app/node_modules  # Keep node_modules within the container
+      - ./frontend:/app  
+      - /app/node_modules  
     ports:
-      - "5173:5173"  # Vite runs on port 5173 by default
+      - "5173:5173" 
     networks:
       - app-network
-    environment:
-      VITE_API_URL: "http://localhost:4000"  # This is the URL your frontend will use to call the backend
 
 volumes:
   pgdata:
